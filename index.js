@@ -7,11 +7,12 @@ class Formatter {
   }
   static sanitize (string) {
     return string.replace(/[^A-Za-z0-9-' ]+/g, '');
-
   }
+
   static titleize (string) {
     let array = [];
     let titleArray = [];
+    let uncapWords = ['the', 'a', 'an', 'but', 'of', 'and', 'for', 'at', 'by', 'from'];
     let cleanTitle;
     array = string.split(' ');
 
@@ -23,22 +24,18 @@ class Formatter {
         let newString = fwArray.join('');
         titleArray.push(newString);
       }
-
       else {
-        console.log(array[i]);
-        let otherWords = array[i];
-        console.log(i);
-        if (otherWords === 'the' || 'a' || 'an' || 'but' || 'of' || 'and' || 'for' || 'at' || 'by' || 'from') {
-          titleArray.push(array[i]);
-        }
-        else { 
-          let oWord = otherWords.split('');
-          oWord[0] = oWord[0].toUpperCase();
-          let owString = oWord.join('');
-          titleArray.push(owString);
-        }
-      }
-      
-      return cleanTitle = titleArray.join();
+          if (uncapWords.includes(array[i])) {
+            titleArray.push(array[i])
+          }
+          else {
+            let otherWords = array[i].split('');
+            otherWords[0] = otherWords[0].toUpperCase();
+            let owString = otherWords.join('');
+            titleArray.push(owString);
+          }        
+      } 
     }
-  }}
+    return cleanTitle = titleArray.join(' ');
+  }
+}
